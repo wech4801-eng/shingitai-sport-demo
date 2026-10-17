@@ -344,3 +344,18 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--lime);outline-offse
 .fan>*{width:min(46%,144px)}
 .fan>img{width:min(52%,160px);object-fit:cover}
 .card h3{position:relative;z-index:3}
+
+/* v2.4 — phones: the bar holds brand + CTA + a menu icon; the hero fits its content, with a large emblem */
+.nav-menu-icon{display:none;width:22px;height:22px}
+@media(max-width:560px){
+  .nav{gap:6px}
+  .nav-links{order:2}
+  .nav-cta{order:1}
+  .nav-menu-btn{width:44px;padding:0;justify-content:center}
+  .nav-menu-icon{display:block}
+  .nav-menu-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+}
+@media(max-width:900px){
+  .hero{min-height:0;padding:104px 16px 12px;gap:22px}
+  .hero-mark{width:min(88vw,420px)}
+}
