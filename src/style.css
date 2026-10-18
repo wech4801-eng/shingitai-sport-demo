@@ -347,6 +347,9 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--lime);outline-offse
 
 /* v2.4 — phones: the bar holds brand + CTA + a menu icon; the hero fits its content, with a large emblem */
 .nav-menu-icon{display:none;width:22px;height:22px}
+/* Four title lines (« Une app / mobile. ») must leave room for the emblem on short laptop screens */
+.hero-title{font-size:clamp(52px,min(8vw,10.5svh),168px)}
+.hero-mark{width:clamp(120px,min(15vw,22svh),210px)}
 @media(max-width:560px){
   .nav{gap:6px}
   .nav-links{order:2}
@@ -358,4 +361,9 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--lime);outline-offse
 @media(max-width:900px){
   .hero{min-height:0;padding:104px 16px 12px;gap:22px}
   .hero-mark{width:min(88vw,420px)}
+  /* « Va plus loin » : a tall phone frame cropped the photo to a quarter of its width; show all of it under the headline */
+  .scene{height:auto;display:flex;flex-direction:column;padding:72px 0 0}
+  .scene::after{display:none}
+  .scene-copy{position:relative;inset:auto;order:-1;padding:0 16px 32px}
+  .scene-img{position:relative;inset:auto;width:100%;height:auto;aspect-ratio:2/1}
 }

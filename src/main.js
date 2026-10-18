@@ -118,11 +118,15 @@ if (reduced) {
   /* ---------- Rail: progress through the whole page ---------- */
   gsap.to('.rail-dot', { y: 56, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: true } });
 
-  /* ---------- Hero leaves upward, the mark keeps rising ---------- */
-  gsap.to('.hero-title', { yPercent: -30, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
-  gsap.to('.hero-mark', { yPercent: -18, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
-
   const mm = gsap.matchMedia();
+
+  /* ---------- Hero leaves upward, the mark keeps rising (desktop; on phones the hero simply scrolls) ---------- */
+  mm.add('(min-width: 901px)', () => {
+    const leave = () => ({ trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true });
+    gsap.to('.hero-title', { yPercent: -30, ease: 'none', scrollTrigger: leave() });
+    // `y`, not `yPercent`: the intro owns yPercent, and a shared property would replay the rise backwards on scroll
+    gsap.to('.hero-mark', { y: () => -$('.hero-mark').getBoundingClientRect().height * .18, ease: 'none', scrollTrigger: leave() });
+  });
 
   /* ---------- Story: the pinned phone metamorphosis (desktop) ---------- */
   mm.add('(min-width: 901px)', () => {
@@ -149,7 +153,8 @@ if (reduced) {
     gsap.fromTo('.scene-img', { scale: 1.18 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.scene', start: 'top top', end: '+=70%', pin: true, scrub: true } });
   });
   mm.add('(max-width: 900px)', () => {
-    gsap.fromTo('.scene-img', { yPercent: -8 }, { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '.scene', start: 'top bottom', end: 'bottom top', scrub: true } });
+    // Phones show the whole photo under the headline: it opens up as it scrolls in rather than moving out of its slot
+    gsap.fromTo('.scene-img', { clipPath: 'inset(12% 8% 12% 8% round 20px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none', scrollTrigger: { trigger: '.scene-img', start: 'top bottom', end: 'center center', scrub: true } });
   });
   // The update chip steps aside once the footer comes in, instead of covering it.
   ScrollTrigger.create({ trigger: '.foot', start: 'top bottom', onToggle: self => gsap.to('.toast', { autoAlpha: self.isActive ? 0 : 1, y: self.isActive ? 12 : 0, duration: .4, ease: 'power2.out' }) });
