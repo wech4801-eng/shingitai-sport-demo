@@ -10,7 +10,7 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fmt = (v, dec) => v.toLocaleString('fr-FR', { minimumFractionDigits: dec, maximumFractionDigits: dec });
 
-/* ---------- Chrome: menu, toast, scroll rail ---------- */
+/* ---------- Chrome: menu, scroll rail ---------- */
 const menuBtn = $('.nav-menu-btn'), mega = $('#mega');
 function setMenu(open) {
   mega.hidden = !open;
@@ -26,7 +26,6 @@ mega.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false);
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && !mega.hidden) { setMenu(false); menuBtn.focus(); } });
 document.addEventListener('pointerdown', e => { if (!mega.hidden && !mega.contains(e.target) && !menuBtn.contains(e.target)) setMenu(false); });
 $$('.tile-bars i').forEach((bar, i) => bar.style.setProperty('--i', [2, 3, 3, 4, 5, 6][i]));
-$('.toast button').addEventListener('click', () => $('.toast').classList.add('is-hidden'));
 
 /* ---------- Card micro-animations (each runs once, loops stay light) ---------- */
 function crossfadeLoop(items, period = 2.4) {
@@ -98,7 +97,7 @@ if (reduced) {
   });
   gsap.set('.hero-title span', { yPercent: 110 });
   gsap.set('.hero-mark', { yPercent: 70 });
-  gsap.set(['.hero-cta', '.nav', '.toast', '.rail'], { autoAlpha: 0, y: 16 });
+  gsap.set(['.hero-cta', '.nav', '.rail'], { autoAlpha: 0, y: 16 });
   const intro = gsap.timeline({
     defaults: { ease: 'power3.inOut' },
     onComplete() { document.body.classList.remove('is-loading'); $('.loader')?.remove(); lenis.start(); },
@@ -113,7 +112,7 @@ if (reduced) {
   intro
     .to('.hero-title span', { yPercent: 0, duration: 1, stagger: .08, ease: 'expo.out' }, '-=.45')
     .to('.hero-mark', { yPercent: 0, duration: 1.2, ease: 'back.out(1.3)' }, '-=.85')
-    .to(['.hero-cta', '.nav', '.toast', '.rail'], { autoAlpha: 1, y: 0, duration: .6, stagger: .06, ease: 'power3.out' }, '-=.9');
+    .to(['.hero-cta', '.nav', '.rail'], { autoAlpha: 1, y: 0, duration: .6, stagger: .06, ease: 'power3.out' }, '-=.9');
 
   /* ---------- Rail: progress through the whole page ---------- */
   gsap.to('.rail-dot', { y: 56, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: true } });
@@ -156,8 +155,6 @@ if (reduced) {
     // Phones show the whole photo under the headline: it opens up as it scrolls in rather than moving out of its slot
     gsap.fromTo('.scene-img', { clipPath: 'inset(12% 8% 12% 8% round 20px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none', scrollTrigger: { trigger: '.scene-img', start: 'top bottom', end: 'center center', scrub: true } });
   });
-  // The update chip steps aside once the footer comes in, instead of covering it.
-  ScrollTrigger.create({ trigger: '.foot', start: 'top bottom', onToggle: self => gsap.to('.toast', { autoAlpha: self.isActive ? 0 : 1, y: self.isActive ? 12 : 0, duration: .4, ease: 'power2.out' }) });
   gsap.timeline({ scrollTrigger: { trigger: '.scene', start: 'top 55%' } })
     .from('.scene-title', { yPercent: 40, autoAlpha: 0, duration: 1, ease: 'expo.out' })
     .from('.scene-mark', { scale: 0, rotate: -25, duration: .7, ease: 'back.out(2.2)' }, '-=.6');

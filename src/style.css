@@ -79,13 +79,6 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--lime);outline-offse
 
 .rail{position:fixed;right:18px;top:50%;z-index:40;width:14px;height:70px;margin-top:-35px;border-radius:999px;background:var(--ink);padding:3px}
 .rail-dot{display:block;width:8px;height:8px;border-radius:50%;background:var(--lime);will-change:transform}
-.toast{position:fixed;left:16px;bottom:16px;z-index:40;display:flex;align-items:center;gap:10px;max-width:calc(100vw - 32px);padding:8px 8px 8px 12px;background:var(--chalk);border-radius:14px;font-size:13px;font-weight:600;box-shadow:0 14px 30px -18px #161c1866}
-.toast-tag{padding:4px 8px;border-radius:8px;background:var(--lime);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
-.toast a{min-height:32px;display:inline-flex;align-items:center}
-.toast button{width:32px;height:32px;border-radius:50%;font-size:18px}
-.toast.is-hidden{display:none}
-.toast{transition:opacity .4s var(--ease),transform .4s var(--ease)}
-.toast.is-away{opacity:0;transform:translateY(12px);pointer-events:none}
 
 /* ---------- Hero ---------- */
 .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:26px;padding:clamp(110px,15svh,150px) 16px 40svh;overflow:hidden;text-align:center}
@@ -234,7 +227,6 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--lime);outline-offse
   .duo-card--ink>:not(img){max-width:none}
   .foot-top{grid-template-columns:1fr 1fr}
   .foot-word{grid-column:1/-1}
-  .toast{right:16px;font-size:12px;padding:6px 6px 6px 10px}
   .nav{padding:0 8px 0 12px}
   .nav-links>*{padding:0 8px;font-size:13px}
   .nav-cta{white-space:nowrap;padding:10px 14px;font-size:11px;min-height:40px}
@@ -245,7 +237,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--lime);outline-offse
   .jump-title{font-size:11vw}
   .story-title{font-size:12.5vw}
 }
-@media(max-width:420px){.free-grid{grid-template-columns:1fr}.toast a{font-size:12px}}
+@media(max-width:420px){.free-grid{grid-template-columns:1fr}}
 
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
